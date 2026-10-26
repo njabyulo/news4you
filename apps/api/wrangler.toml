@@ -1,0 +1,22 @@
+name = "news4you-api"
+main = "src/main.ts"
+compatibility_date = "2025-10-24"
+workers_dev = true
+routes = [{ pattern = "api-news4you.njabulomajozi.com", custom_domain = true }]
+[vars]
+DASHBOARD_ORIGIN = "https://news4you.njabulomajozi.com"
+AUTH0_DOMAIN = "dev-bqbiqw7tlva270ni.us.auth0.com"
+AUTH0_AUDIENCE = "https://api-news4you.njabulomajozi.com"
+AUTH0_GOOGLE_CONNECTION = "google-oauth2"
+GOOGLE_CALLBACK_URL = "https://api-news4you.njabulomajozi.com/oauth/google/callback"
+[[d1_databases]]
+binding = "DB"
+database_name = "news4you"
+database_id = "ac84c50b-5fe9-4982-aabd-6985e83b64b5"
+migrations_dir = "../../packages/database/migrations"
+
+[[workflows]]
+name = "news4you-publication"
+binding = "PUBLICATION"
+class_name = "PublicationWorkflow"
+script_name = "news4you-publisher"

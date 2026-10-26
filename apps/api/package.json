@@ -1,0 +1,22 @@
+{
+  "name": "@news4you/api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --port 8787",
+    "build": "wrangler deploy --dry-run --outdir dist",
+    "typecheck": "tsc --noEmit",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@news4you/core": "workspace:*",
+    "@news4you/database": "workspace:*",
+    "@news4you/shared": "workspace:*",
+    "hono": "^4.13.13",
+    "jose": "^6.2.13",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "wrangler": "4.152.0"
+  }
+}
