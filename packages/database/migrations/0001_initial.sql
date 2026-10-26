@@ -1,0 +1,17 @@
+PRAGMA foreign_keys = ON;
+CREATE TABLE readers (id TEXT PRIMARY KEY, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE preferences (reader_id TEXT PRIMARY KEY REFERENCES readers(id), data TEXT NOT NULL);
+CREATE TABLE source_settings (reader_id TEXT NOT NULL REFERENCES readers(id), id TEXT NOT NULL, data TEXT NOT NULL, PRIMARY KEY(reader_id,id));
+CREATE TABLE source_items (id TEXT PRIMARY KEY, reader_id TEXT NOT NULL REFERENCES readers(id), fingerprint TEXT NOT NULL, data TEXT NOT NULL, collected_at TEXT NOT NULL);
+CREATE INDEX source_retention ON source_items(collected_at);
+CREATE TABLE generation_runs (id TEXT PRIMARY KEY, reader_id TEXT NOT NULL REFERENCES readers(id), local_date TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('daily','preview')), status TEXT NOT NULL CHECK(status IN ('pending','running','completed','failed')), attempts INTEGER NOT NULL DEFAULT 0, lease_token TEXT, lease_until TEXT, edition_id TEXT, error TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL);
+CREATE UNIQUE INDEX one_daily_run ON generation_runs(reader_id,local_date) WHERE kind='daily';
+CREATE UNIQUE INDEX one_active_preview ON generation_runs(reader_id) WHERE kind='preview' AND status IN ('pending','running');
+CREATE INDEX pending_runs ON generation_runs(status,lease_until,created_at);
+CREATE TABLE editions (id TEXT PRIMARY KEY, reader_id TEXT NOT NULL REFERENCES readers(id), local_date TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('daily','preview')), created_at TEXT NOT NULL, reading_minutes INTEGER NOT NULL, content TEXT NOT NULL, run_id TEXT NOT NULL UNIQUE REFERENCES generation_runs(id));
+CREATE UNIQUE INDEX one_daily_edition ON editions(reader_id,local_date) WHERE kind='daily';
+CREATE INDEX edition_history ON editions(reader_id,created_at DESC);
+CREATE TABLE edition_items (edition_id TEXT NOT NULL REFERENCES editions(id), position INTEGER NOT NULL, data TEXT NOT NULL, PRIMARY KEY(edition_id,position));
+CREATE TABLE edition_references (edition_id TEXT NOT NULL REFERENCES editions(id), source_id TEXT NOT NULL, fingerprint TEXT NOT NULL, data TEXT NOT NULL, PRIMARY KEY(edition_id,source_id));
+CREATE INDEX covered_stories ON edition_references(fingerprint);
+CREATE TABLE feedback (reader_id TEXT NOT NULL REFERENCES readers(id), edition_id TEXT NOT NULL REFERENCES editions(id), rating TEXT NOT NULL CHECK(rating IN ('helpful','unhelpful')), comment TEXT NOT NULL, PRIMARY KEY(reader_id,edition_id));
