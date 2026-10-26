@@ -1,0 +1,79 @@
+.public-info {
+  min-height: 100vh;
+  background: #f7f6f0;
+  color: #27372e;
+  font:
+    16px/1.75 Arial,
+    Helvetica,
+    sans-serif;
+}
+.public-info header,
+.public-info footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1100px;
+  margin: auto;
+  padding: 24px;
+}
+.public-info header {
+  border-bottom: 1px solid #deded4;
+}
+.public-info .policy-brand {
+  font-size: 26px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.public-info main {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+.public-info .policy-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.4px;
+  color: #596752;
+}
+.public-info h1 {
+  font:
+    clamp(38px, 7vw, 64px)/1.1 Georgia,
+    serif;
+  margin: 18px 0 28px;
+}
+.public-info h2 {
+  font:
+    28px/1.25 Georgia,
+    serif;
+  margin: 40px 0 14px;
+}
+.public-info p {
+  margin: 16px 0;
+}
+.public-info .policy-lede {
+  font-size: 20px;
+  color: #596752;
+}
+.public-info a {
+  color: #254f40;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.public-info a:focus-visible {
+  outline: 2px solid #9b5335;
+  outline-offset: 5px;
+}
+.public-info footer {
+  border-top: 1px solid #deded4;
+  justify-content: flex-start;
+}
+@media print {
+  .public-info main {
+    max-width: none;
+    padding: 0;
+  }
+  .public-info header,
+  .public-info footer {
+    display: none;
+  }
+}
