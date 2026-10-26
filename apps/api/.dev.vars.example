@@ -1,0 +1,12 @@
+AUTH0_DOMAIN=your-tenant.auth0.com
+AUTH0_AUDIENCE=https://api-news4you.njabulomajozi.com
+DASHBOARD_ORIGIN=http://localhost:5173
+PUBLISHER_TOKEN=replace-with-a-random-32-byte-secret
+
+# Separate confidential Auth0 Regular Web Application, never the SPA client secret
+AUTH0_GOOGLE_CLIENT_ID=
+AUTH0_GOOGLE_CLIENT_SECRET=
+AUTH0_GOOGLE_CONNECTION=google-oauth2
+GOOGLE_CALLBACK_URL=http://localhost:8787/oauth/google/callback
+# Random 32 bytes, base64url encoded; kept stable to decrypt existing connections
+GOOGLE_TOKEN_ENCRYPTION_KEY=

@@ -1,0 +1,18 @@
+name = "news4you-publisher"
+main = "src/cloudflare.ts"
+compatibility_date = "2026-10-25"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+[vars]
+API_URL = "https://api-news4you.njabulomajozi.com"
+MODEL_FREE_TIER_CONFIRMED = "true"
+MASTRA_TELEMETRY_DISABLED = "true"
+[triggers]
+crons = ["7 * * * *"]
+[[services]]
+binding = "API"
+service = "news4you-api"
+[[workflows]]
+name = "news4you-publication"
+binding = "PUBLICATION"
+class_name = "PublicationWorkflow"

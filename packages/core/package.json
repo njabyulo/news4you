@@ -1,0 +1,25 @@
+{
+  "name": "@news4you/core",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./newspaper": "./src/newspaper/index.ts",
+    "./newspaper/util": "./src/newspaper/util.ts",
+    "./newspaper/*": "./src/newspaper/*/index.ts",
+    "./newspaper/services": "./src/newspaper/container.ts",
+    "./auth": "./src/auth/index.ts",
+    "./auth/util": "./src/auth/util.ts",
+    "./auth/*": "./src/auth/*/index.ts",
+    "./editor": "./src/editor/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@news4you/database": "workspace:*",
+    "@news4you/shared": "workspace:*",
+    "drizzle-orm": "^0.45.4"
+  }
+}

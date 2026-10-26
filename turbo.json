@@ -1,0 +1,32 @@
+{
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "@news4you/dashboard#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"],
+      "env": [
+        "VITE_AUTH0_DOMAIN",
+        "VITE_AUTH0_CLIENT_ID",
+        "VITE_AUTH0_AUDIENCE",
+        "VITE_API_URL",
+        "VITE_GOOGLE_CONNECTION_ENABLED",
+        "VITE_AUTH0_GOOGLE_CONNECTION"
+      ],
+      "inputs": ["$TURBO_DEFAULT$", ".env.local", ".env.production"]
+    },
+    "@news4you/api#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    }
+  }
+}

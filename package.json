@@ -1,0 +1,48 @@
+{
+  "name": "news4you",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "run-p dev:*",
+    "dev:api": "pnpm --filter @news4you/api dev",
+    "dev:dashboard": "pnpm --filter @news4you/dashboard dev --host localhost",
+    "lint": "run-s lint:*",
+    "lint:code": "oxlint --deny-warnings .",
+    "lint:type": "turbo typecheck && tsc --project tsconfig.check.json",
+    "test": "run-s test:*",
+    "test:unit": "vitest run",
+    "build": "run-s build:*",
+    "build:shared": "turbo build --filter=@news4you/shared",
+    "build:database": "turbo build --filter=@news4you/database",
+    "build:core": "turbo build --filter=@news4you/core",
+    "build:api": "turbo build --filter=@news4you/api",
+    "build:dashboard": "turbo build --filter=@news4you/dashboard",
+    "build:publisher": "turbo build --filter=@news4you/publisher",
+    "deploy": "pnpm deploy:publisher && pnpm deploy:api && pnpm deploy:dashboard",
+    "deploy:api": "pnpm build:api && pnpm --filter @news4you/api run deploy --keep-vars",
+    "deploy:dashboard": "pnpm build:dashboard && pnpm --filter @news4you/dashboard run deploy --keep-vars",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "db:migrate": "pnpm --filter @news4you/api exec wrangler d1 migrations apply news4you --local",
+    "smoke:model": "pnpm --filter @news4you/publisher smoke:model",
+    "sample": "pnpm --filter @news4you/publisher exec tsx ../../../scripts/sample-data.ts",
+    "deploy:publisher": "pnpm build:publisher && pnpm --filter @news4you/publisher run deploy"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261025.1",
+    "@types/node": "^26.6.5",
+    "jose": "^6.2.13",
+    "jsdom": "30.1.3",
+    "miniflare": "4.20260730.0",
+    "npm-run-all2": "9.0.4",
+    "oxfmt": "0.74.0",
+    "oxlint": "1.89.0",
+    "turbo": "^2.11.10",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=26.12.0"
+  },
+  "packageManager": "pnpm@10.28.2"
+}
