@@ -1,0 +1,27 @@
+{
+  "name": "@news4you/publisher",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file-if-exists=.env --import tsx src/main.ts",
+    "start": "node --env-file-if-exists=.env --import tsx src/main.ts",
+    "build": "tsc --noEmit && wrangler deploy --dry-run --outdir dist",
+    "typecheck": "tsc --noEmit",
+    "smoke:model": "node --env-file-if-exists=.env --import tsx src/commands/smoke.ts",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@mastra/core": "^1.79.0",
+    "@news4you/core": "workspace:*",
+    "@news4you/shared": "workspace:*",
+    "@opentelemetry/api": "^1.10.0",
+    "fast-xml-parser": "^5.11.2",
+    "ipaddr.js": "^2.5.0",
+    "partial-json": "^0.1.7",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15",
+    "wrangler": "4.152.0"
+  }
+}
