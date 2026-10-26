@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "react"],
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+    "news4you/module-order": "error"
+  },
+  "ignorePatterns": [
+    "**/dist/**",
+    "**/node_modules/**",
+    "**/.wrangler/**",
+    "**/.turbo/**",
+    "**/coverage/**"
+  ],
+  "jsPlugins": [
+    {
+      "name": "news4you",
+      "specifier": "./tools/oxlint/module-order.mjs"
+    }
+  ]
+}
